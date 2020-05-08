@@ -1,0 +1,26 @@
+a
+{
+    color:rgb(0, 0, 0);
+}
+address
+{
+    text-align:center;
+    font-family:'Times New Roman', Times, serif;
+}
+blockquote
+{
+    border: right 3;
+    font-family: cursive;
+    margin: 12px;
+}
+body
+{
+    background-color:rgba(19, 126, 33, 0.76);
+}
+img
+{
+    float: right;
+    width: 1325;
+    height: 6000;
+    margin: 1px;
+}
