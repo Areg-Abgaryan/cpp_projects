@@ -20,6 +20,7 @@ class Bank_Worker
 {
 protected: 
     Worker_State check_availability() { return Worker_State(rand() % 2); }
+    
 public:
     string name{};
     Bank_Worker(const string& _name) : name{ _name } {}
