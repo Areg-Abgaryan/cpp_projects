@@ -5,15 +5,14 @@
 #include <set>
 #include <utility>
 
-using namespace std;
-
 class Albums
 {
 protected:
 	Albums() {}
 	virtual void print_albums() = 0;
+
 public:
-	vector<pair<string, string>> data_albums;
+	std::vector<std::pair<std::string, std::string>> data_albums{};
 	virtual ~Albums() {};
 };
 
@@ -22,8 +21,9 @@ class Artists
 protected:
 	Artists() {}
 	virtual void print_artists() = 0;
+
 public:
-	vector<string> data_artists;
+	std::vector<std::string> data_artists{};
 	virtual ~Artists() {};
 };
 
@@ -32,8 +32,9 @@ class Songs
 protected:
 	Songs() {}
 	virtual void print_songs() = 0;
+
 public:
-	vector<pair<string, string>> data_songs;
+	std::vector<std::pair<std::string, std::string>> data_songs{};
 	virtual ~Songs() {};
 };
 
@@ -44,26 +45,29 @@ public:
 	{
 		data_albums =
 		{
-			make_pair("AC/DC","Back In Black"), make_pair("AC/DC","Highway To Hell"),
-			make_pair("The Beatles","Abbey Road"), make_pair("The Beatles","A Hard Day's Night"),
-			make_pair("Black Sabbath","Paranoid"), make_pair("Chris Rea","Auberge"),
-			make_pair("Guns N' Roses","Appetite For Destruction"), make_pair("Guns N' Roses","Use Your Illusion I"),
-			make_pair("Led Zeppelin","IV"), make_pair("Lordi","The Arockalypse"),
-			make_pair("Metallica","The Black Album"), make_pair("Metallica","Hardwired... to Self-destruct"),
-			make_pair("Metallica","Ride The Lightning"), make_pair("Metallica","Reload"),
-			make_pair("Motorhead","Ace of Spades"),	make_pair("Nirvana","Nevermind"),
-			make_pair("Pink Floyd","The Dark Side of the Moon"), make_pair("Pink Floyd","The Wall"),
-			make_pair("Pink Floyd","Wish You Were Here"), make_pair("Queen","A Night at the Opera"),
-			make_pair("Radiohead","OK Computer"), make_pair("Rammstein","Mutter"),
-			make_pair("Scorpions","Love at First Sting"), make_pair("Smokie","Midnight Cafe"), make_pair("System of a Down","Toxicity")
+			std::make_pair("AC/DC","Back In Black"), std::make_pair("AC/DC","Highway To Hell"),
+			std::make_pair("The Beatles","Abbey Road"), std::make_pair("The Beatles","A Hard Day's Night"),
+			std::make_pair("Black Sabbath","Paranoid"), std::make_pair("Chris Rea","Auberge"),
+			std::make_pair("Guns N' Roses","Appetite For Destruction"), std::make_pair("Guns N' Roses","Use Your Illusion I"),
+			std::make_pair("Led Zeppelin","IV"), std::make_pair("Lordi","The Arockalypse"),
+			std::make_pair("Metallica","The Black Album"), std::make_pair("Metallica","Hardwired... to Self-destruct"),
+			std::make_pair("Metallica","Ride The Lightning"), std::make_pair("Metallica","Reload"),
+			std::make_pair("Motorhead","Ace of Spades"), std::make_pair("Nirvana","Nevermind"),
+			std::make_pair("Pink Floyd","The Dark Side of the Moon"), std::make_pair("Pink Floyd","The Wall"),
+			std::make_pair("Pink Floyd","Wish You Were Here"), std::make_pair("Queen","A Night at the Opera"),
+			std::make_pair("Radiohead","OK Computer"), std::make_pair("Rammstein","Mutter"),
+			std::make_pair("Scorpions","Love at First Sting"), std::make_pair("Smokie","Midnight Cafe"),
+			std::make_pair("System of a Down","Toxicity")
 		};
 	}
+
 private:
 	void print_albums() override
 	{
-		cout << "Rock Albums List\n";
+		std::cout << "Rock Albums List\n";
+		
 		for (const auto& x : data_albums)
-			cout << x.first << " - " << x.second << "\n";
+			std::cout << x.first << " - " << x.second << "\n";
 	}
 };
 
@@ -74,28 +78,29 @@ public:
 	{
 		data_albums =
 		{
-			make_pair("Albert Collins","Ice Pickin"), make_pair("Albert King", "Born Under a Bad Sign"),
-			make_pair("B.B.King","Live at the Regal"), make_pair("Buddy Guy","I Was Walking Through the Woods"),
-			make_pair("Buddy Guy","Sweet Tea"), make_pair("Chris Barber","Good Morning Blues"),
-			make_pair("Chuck Berry","One Dozen Berrys"), make_pair("Cream","Wheels of Fire"),
-			make_pair("Elmore James","Blues Master Works"),	make_pair("Elmore James","The Sky is Crying"),
-			make_pair("Etta James", "At Last"), make_pair("Eric Clapton","From the Cradle"),
-			make_pair("Eric Clapton & B.B. King", "Riding with the King"), make_pair("Etta James", "I'd Rather Go Blind"),
-			make_pair("Gary Moore","Still Got The Blues"), make_pair("Howlin' Wolf","Moanin' in the Moonlight"),
-			make_pair("Jimi Hendrix","Blues"), make_pair("John Lee Hooker", "It Serves You Right To Suffer"),
-			make_pair("Johny Winter","Second Winter"), make_pair("Jonny Lang","Lie to Me"),
-			make_pair("Jonny Lang","Wander This World"), make_pair("Muddy Waters","The Folk Singer"),
-			make_pair("Muddy Waters","Hard Again"), make_pair("Robert Johnson","King of the Delta Blues Singers"),
-			make_pair("Stevie Ray Vaughan","Texas Flood")
+			std::make_pair("Albert Collins","Ice Pickin"), std::make_pair("Albert King", "Born Under a Bad Sign"),
+			std::make_pair("B.B.King","Live at the Regal"), std::make_pair("Buddy Guy","I Was Walking Through the Woods"),
+			std::make_pair("Buddy Guy","Sweet Tea"), std::make_pair("Chris Barber","Good Morning Blues"),
+			std::make_pair("Chuck Berry","One Dozen Berrys"), std::make_pair("Cream","Wheels of Fire"),
+			std::make_pair("Elmore James","Blues Master Works"), std::make_pair("Elmore James","The Sky is Crying"),
+			std::make_pair("Etta James", "At Last"), std::make_pair("Eric Clapton","From the Cradle"),
+			std::make_pair("Eric Clapton & B.B. King", "Riding with the King"), std::make_pair("Etta James", "I'd Rather Go Blind"),
+			std::make_pair("Gary Moore","Still Got The Blues"), std::make_pair("Howlin' Wolf","Moanin' in the Moonlight"),
+			std::make_pair("Jimi Hendrix","Blues"), std::make_pair("John Lee Hooker", "It Serves You Right To Suffer"),
+			std::make_pair("Johny Winter","Second Winter"), std::make_pair("Jonny Lang","Lie to Me"),
+			std::make_pair("Jonny Lang","Wander This World"), std::make_pair("Muddy Waters","The Folk Singer"),
+			std::make_pair("Muddy Waters","Hard Again"), std::make_pair("Robert Johnson","King of the Delta Blues Singers"),
+			std::make_pair("Stevie Ray Vaughan","Texas Flood")
 		};
 	}
 
 private:
 	void print_albums() override
 	{
-		cout << "Blues Albums List\n";
+		std::cout << "Blues Albums List\n";
+		
 		for (const auto& x : data_albums)
-			cout << x.first << " - " << x.second << "\n";
+			std::cout << x.first << " - " << x.second << "\n";
 	}
 };
 
@@ -116,12 +121,14 @@ public:
 			}
 		};
 	}
+
 private:
 	void print_artists() override
 	{
-		cout << "Rock Artists List\n";
+		std::cout << "Rock Artists List\n";
+		
 		for (const auto& x : data_artists)
-			cout << x << "\n";
+			std::cout << x << "\n";
 	}
 };
 
@@ -140,12 +147,14 @@ public:
 			"Robert Johnson", "Stevie Ray Vaughan", "The Jimi Hendrix Experience", "Walter Trout", "W.C. Handy"
 		};
 	}
+
 private:
 	void print_artists() override
 	{
-		cout << "Blues Artists List\n";
+		std::cout << "Blues Artists List\n";
+		
 		for (const auto& x : data_artists)
-			cout << x << "\n";
+			std::cout << x << "\n";
 	}
 };
 
@@ -156,27 +165,29 @@ public:
 	{
 		data_songs =
 		{
-			make_pair("AC/DC","Hell's Bells"), make_pair("Aerosmith","Dream On"),
-			make_pair("Black Sabbath", "Loner"), make_pair("The Beatles","Come Together"),
-			make_pair("Blur","Song 2"), make_pair("Chris Rea","The Road to Hell"),
-			make_pair("The Cranberries","Zombie"), make_pair("Creedence Clearwater Revival","Have You Ever Seen the Rain?"),
-			make_pair("Deep Purple", "The Cut Runs Deep"), make_pair("Dio","Rainbow in the Dark"),
-			make_pair("Europe","The Final Countdown"), make_pair("Foo Fighters","The Pretender"),
-			make_pair("Guns N' Roses","Don't Cry"), make_pair("Led Zeppelin","Immigrant Song"),
-			make_pair("Marylin Manson","Personsal Jesus"), make_pair("Metallica","For Whom the Bell Tolls"),
-			make_pair("Motorhead","Overkill"), make_pair("Muse","Supermassive Black Hole"),
-			make_pair("Pink Floyd","Time"), make_pair("Rammstein","Mein Herz Brennt"),
-			make_pair("Scorpions","When the is Going Down"), make_pair("System of a Down","B.Y.O.B."),
-			make_pair("Survivor","Eye of the Tiger"), make_pair("The White Stripes","Seven Nation Army"),
-			make_pair("ZZ Top","Bad to the Bone")
+			std::make_pair("AC/DC","Hell's Bells"), std::make_pair("Aerosmith","Dream On"),
+			std::make_pair("Black Sabbath", "Loner"), std::make_pair("The Beatles","Come Together"),
+			std::make_pair("Blur","Song 2"), std::make_pair("Chris Rea","The Road to Hell"),
+			std::make_pair("The Cranberries","Zombie"), std::make_pair("Creedence Clearwater Revival","Have You Ever Seen the Rain?"),
+			std::make_pair("Deep Purple", "The Cut Runs Deep"), std::make_pair("Dio","Rainbow in the Dark"),
+			std::make_pair("Europe","The Final Countdown"), std::make_pair("Foo Fighters","The Pretender"),
+			std::make_pair("Guns N' Roses","Don't Cry"), std::make_pair("Led Zeppelin","Immigrant Song"),
+			std::make_pair("Marylin Manson","Personsal Jesus"), std::make_pair("Metallica","For Whom the Bell Tolls"),
+			std::make_pair("Motorhead","Overkill"), std::make_pair("Muse","Supermassive Black Hole"),
+			std::make_pair("Pink Floyd","Time"), std::make_pair("Rammstein","Mein Herz Brennt"),
+			std::make_pair("Scorpions","When the Smoke is Going Down"), std::make_pair("System of a Down","B.Y.O.B."),
+			std::make_pair("Survivor","Eye of the Tiger"), std::make_pair("The White Stripes","Seven Nation Army"),
+			std::make_pair("ZZ Top","Bad to the Bone")
 		};
 	}
+
 private:
 	void print_songs() override
 	{
-		cout << "Rock Songs List\n";
+		std::cout << "Rock Songs List\n";
+		
 		for (const auto& x : data_songs)
-			cout << x.first << " - " << x.second << "\n";
+			std::cout << x.first << " - " << x.second << "\n";
 	}
 };
 
@@ -187,27 +198,28 @@ public:
 	{
 		data_songs =
 		{
-			make_pair("Albert King","Born Under a Bad Sign"), make_pair("B.B. King","Sweet Little Angel"),
-			make_pair("B.B. King","The Thrill Is Gone"), make_pair("Cream","Sunshine of Your Love"),
-			make_pair("Etta James","All I Could Do Was Cryin"), make_pair("Etta James","At Last"),
-			make_pair("Etta James","I'd Rather Go Blind"), make_pair("Howlin' Wolf","How Many More Years"),
-			make_pair("John Lee Hooker","Boogie Chillin"), make_pair("John Lee Hooker","One Bourbon, One Scotch, One Beer"),
-			make_pair("Jonny Lang","Lie To Me"), make_pair("Leadbelly","Where Did You Sleep Last Night?"),
-			make_pair("Lightnin' Hopkins","Bring Me My Shotgun"), make_pair("Little Walter","My Babe"),
-			make_pair("Lonnie Johnson","Too Late To Cry"), make_pair("Muddy Waters","Hoochie Coochie Man"),
-			make_pair("Muddy Waters","Mannish Boy"), make_pair("Otis Rush","I Can't Quit You Baby"),
-			make_pair("Robert Johnson","Crossroad Blues"), make_pair("Robert Johnson","Sweet Home Chicago"),
-			make_pair("Robert Johnson","Travelling Riverside Blues"), make_pair("Roosevelt Skykes","Forty Four Blues"),
-			make_pair("Son House","Pearline"), make_pair("T-Bone Walker","Stormy Monday"), make_pair("W.C. Handy","Memphis Blues")
+			std::make_pair("Albert King","Born Under a Bad Sign"), std::make_pair("B.B. King","Sweet Little Angel"),
+			std::make_pair("B.B. King","The Thrill Is Gone"), std::make_pair("Cream","Sunshine of Your Love"),
+			std::make_pair("Etta James","All I Could Do Was Cryin"), std::make_pair("Etta James","At Last"),
+			std::make_pair("Etta James","I'd Rather Go Blind"), std::make_pair("Howlin' Wolf","How Many More Years"),
+			std::make_pair("John Lee Hooker","Boogie Chillin"), std::make_pair("John Lee Hooker","One Bourbon, One Scotch, One Beer"),
+			std::make_pair("Jonny Lang","Lie To Me"), std::make_pair("Leadbelly","Where Did You Sleep Last Night?"),
+			std::make_pair("Lightnin' Hopkins","Bring Me My Shotgun"), std::make_pair("Little Walter","My Babe"),
+			std::make_pair("Lonnie Johnson","Too Late To Cry"), std::make_pair("Muddy Waters","Hoochie Coochie Man"),
+			std::make_pair("Muddy Waters","Mannish Boy"), std::make_pair("Otis Rush","I Can't Quit You Baby"),
+			std::make_pair("Robert Johnson","Crossroad Blues"), std::make_pair("Robert Johnson","Sweet Home Chicago"),
+			std::make_pair("Robert Johnson","Travelling Riverside Blues"), std::make_pair("Roosevelt Skykes","Forty Four Blues"),
+			std::make_pair("Son House","Pearline"), std::make_pair("T-Bone Walker","Stormy Monday"), std::make_pair("W.C. Handy","Memphis Blues")
 		};
 	}
 
 private:
 	void print_songs() override
 	{
-		cout << "Blues Songs List\n";
+		std::cout << "Blues Songs List\n";
+
 		for (const auto& x : data_songs)
-			cout << x.first << " - " << x.second << "\n";
+			std::cout << x.first << " - " << x.second << "\n";
 	}
 };
 
@@ -222,26 +234,26 @@ public:
 class Rock_Music_Level : public Abstract_Music_Quiz_Factory
 {
 public:
-	Rock_Music_Level() { cout << "Rock Music Level Begins!\n"; }
+	Rock_Music_Level() { std::cout << "Rock Music Level Begins!\n"; }
 
 	void survival_mode() const
 	{
-		bool status = 1;
-		unique_ptr<Albums> albums = make_unique<RockAlbums>();
+		bool status{ 1 };
+		std::unique_ptr<Albums> albums = std::make_unique<RockAlbums>();
 
-		cout << "\nLet's Start!\n";
+		std::cout << "\nLet's Start!\n";
 
 		for (short i = 0; i < 10; ++i)
 		{
 			if (!status)
 			{
-				cout << "\tFalse!\t You Lose!";
+				std::cout << "\tFalse!\t You Lose!";
 				break;
 			}
 
 			short temp = rand() % albums->data_albums.size();
 
-			set<string> st;
+			std::set<std::string> st{};
 			st.insert(albums->data_albums[temp].first);
 
 			while (st.size() != 4)
@@ -250,21 +262,21 @@ public:
 				st.insert(albums->data_albums[t].first);
 			}
 
-			cout << "\n" << i + 1 << ") '" << albums->data_albums[temp].second << "'\n\n";
+			std::cout << "\n" << i + 1 << ") '" << albums->data_albums[temp].second << "'\n\n";
 
-			vector<pair<int, string>> pv(4);
+			std::vector<std::pair<int, std::string>> pv(4);
 
 			for (short i = 0; i < 4; ++i)
 			{
-				pv[i] = make_pair(i + 1, *st.begin());
+				pv[i] = std::make_pair(i + 1, *st.begin());
 				st.erase(st.begin());
 			}
 
 			for (auto x : pv)
-				cout << x.first << ".  " << x.second << "\n";
+				std::cout << x.first << ".  " << x.second << "\n";
 
-			short answer;
-			cin >> answer;
+			short answer{};
+			std::cin >> answer;
 
 			for (short i = 0; i < 4; ++i)
 			{
@@ -272,7 +284,7 @@ public:
 				{
 					if (pv[i].second == albums->data_albums[temp].first)
 					{
-						cout << "\tRight!\n";
+						std::cout << "\tRight!\n";
 						break;
 					}
 					else
@@ -304,42 +316,44 @@ class Blues_Music_Level : public Abstract_Music_Quiz_Factory
 public:
 	Blues_Music_Level()
 	{
-		cout << "Blues Music Level Begins!\n";
+		std::cout << "Blues Music Level Begins!\n";
 	}
 
 	void questions_mode() const
 	{
-		unique_ptr<Albums> albums = make_unique<BluesAlbums>();
+		std::unique_ptr<Albums> albums = std::make_unique<BluesAlbums>();
 
-		unsigned score = 0;
+		unsigned score{ 0 };
 
 		for (short i = 0; i < 10; ++i)
 		{
 			short temp = rand() % albums->data_albums.size();
-			set<string> st;
+			
+			std::set<std::string> st{};
 			st.insert(albums->data_albums[temp].first);
+
 			while (st.size() != 4)
 			{
 				short t = rand() % albums->data_albums.size();
 				st.insert(albums->data_albums[t].first);
 			}
 
-			cout << "\n" << i + 1 << ") '" << albums->data_albums[temp].second << "'\n\n";
+			std::cout << "\n" << i + 1 << ") '" << albums->data_albums[temp].second << "'\n\n";
 
-			vector<pair<int, string>> pv(4);
+			std::vector<std::pair<int, std::string>> pv(4);
 
 			for (short i = 0; i < 4; ++i)
 			{
-				pv[i] = make_pair(i + 1, *st.begin());
+				pv[i] = std::make_pair(i + 1, *st.begin());
 				st.erase(st.begin());
 			}
 
 			for (auto x : pv)
-				cout << x.first << ".  " << x.second << "\n";
+				std::cout << x.first << ".  " << x.second << "\n";
 
-			bool b = 0;
-			short answer;
-			cin >> answer;
+			bool b{ 0 };
+			short answer{};
+			std::cin >> answer;
 
 			for (short i = 0; i < 4; ++i)
 			{
@@ -347,17 +361,17 @@ public:
 				{
 					if (pv[i].second == albums->data_albums[temp].first)
 					{
-						cout << "\tRight!\n";
+						std::cout << "\tRight!\n";
 						++score;
 						break;
 					}
 					else
-						cout << "\tFalse!\n";
+						std::cout << "\tFalse!\n";
 				}
 			}
 			albums->data_albums.erase(albums->data_albums.begin() + temp);
 		}
-		cout << "\n\tYour score is: " << score;
+		std::cout << "\n\tYour score is: " << score;
 	}
 
 
@@ -377,20 +391,20 @@ public:
 	}
 };
 
-static unique_ptr<Abstract_Music_Quiz_Factory> create(const int n)
+static std::unique_ptr<Abstract_Music_Quiz_Factory> create(const int n)
 {
 	if (n == 1)
-		return make_unique<Rock_Music_Level>();
+		return std::make_unique<Rock_Music_Level>();
 	if (n == 2)
-		return make_unique<Blues_Music_Level>();
+		return std::make_unique<Blues_Music_Level>();
 }
 
-void game(const unique_ptr<Abstract_Music_Quiz_Factory> temp)
+void game(const std::unique_ptr<Abstract_Music_Quiz_Factory> temp)
 {
-	cout << "\tEnter:\n'1' for albums quiz\n'2' for artists quiz\n'3' for songs quiz\n";
+	std::cout << "\tEnter:\n'1' for albums quiz\n'2' for artists quiz\n'3' for songs quiz\n";
 
-	char ch;
-	cin >> ch;
+	char ch{};
+	std::cin >> ch;
 
 	switch (ch)
 	{
@@ -411,6 +425,6 @@ void game(const unique_ptr<Abstract_Music_Quiz_Factory> temp)
 int main()
 {
 	srand(time(0));
-	unique_ptr<Abstract_Music_Quiz_Factory> current_game = create(1);
+	std::unique_ptr<Abstract_Music_Quiz_Factory> current_game = create(1);
 	game(std::move(current_game));
 }
