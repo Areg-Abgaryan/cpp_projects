@@ -1,12 +1,11 @@
 #include <iostream>
 #include <memory>
 
-using namespace std;
-
 class Ship_Size
 {
 protected:
-	void description() { cout << "Ship size is: "; }
+	void description() { std::cout << "Ship size is: "; }
+
 public:
 	virtual void ship_construction() = 0;
 	virtual ~Ship_Size() = default;
@@ -18,8 +17,9 @@ private:
 	void construct_big_ship()
 	{
 		description();
-		cout << "big\n";
+		std::cout << "big\n";
 	}
+
 public:
 	Big() = default;
 
@@ -37,8 +37,9 @@ private:
 	void construct_small_ship()
 	{
 		description();
-		cout << "small\n";
+		std::cout << "small\n";
 	}
+
 public:
 	Small() = default;
 
@@ -53,9 +54,10 @@ public:
 class Vikingskipet
 {
 protected:
-	unique_ptr<Ship_Size> shsz;
+	std::unique_ptr<Ship_Size> shsz;
+
 public:
-	Vikingskipet(unique_ptr<Ship_Size>&& ptr) : shsz(move(ptr)) {}
+	Vikingskipet(std::unique_ptr<Ship_Size>&& ptr) : shsz(std::move(ptr)) {}
 
 	virtual void ship_mission()
 	{
@@ -70,11 +72,11 @@ Vikingskipet::~Vikingskipet() {}
 class Knarr : public Vikingskipet
 {
 public:
-	Knarr(unique_ptr<Ship_Size>& knsz) : Vikingskipet(move(knsz)) {}
+	Knarr(std::unique_ptr<Ship_Size>& knsz) : Vikingskipet(std::move(knsz)) {}
 
 	void ship_mission() override
 	{
-		cout << "Merchant ship is built.\n";
+		std::cout << "Merchant ship is built.\n";
 		this->shsz->ship_construction();
 	}
 };
@@ -82,18 +84,19 @@ public:
 class Langskip : public Vikingskipet
 {
 public:
-	Langskip(unique_ptr<Ship_Size>& lngsz) : Vikingskipet(move(lngsz)) {}
+	Langskip(std::unique_ptr<Ship_Size>& lngsz) : Vikingskipet(std::move(lngsz)) {}
 
 	void ship_mission() override
 	{
-		cout << "Warship is built.\n";
+		std::cout << "Warship is built.\n";
 		this->shsz->ship_construction();
 	}
 };
 
 int main()
 {
-	unique_ptr<Ship_Size> sz = make_unique<Big>();
-	unique_ptr<Vikingskipet> vksh = make_unique<Knarr>(sz);
+	std::unique_ptr<Ship_Size> sz = std::make_unique<Big>();
+	std::unique_ptr<Vikingskipet> vksh = std::make_unique<Knarr>(sz);
+
 	vksh->ship_mission();
 }
