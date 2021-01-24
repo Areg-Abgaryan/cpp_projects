@@ -2,20 +2,19 @@
 #include <vector>
 #include <memory>
 
-using namespace std;
-
 class File
 {
 private:
 	double file_sz_in_mb{};
-	string file_name{};
-	string file_extension{};
+	std::string file_name{};
+	std::string file_extension{};
+
 public:
-	File(const double fsz, const string& fn, const string& fe)
+	File(const double fsz, const std::string& fn, const std::string& fe)
 		: file_sz_in_mb{ fsz }, file_name{ fn }, file_extension{ fe }  {}
 
 	virtual double get_file_size() const { return file_sz_in_mb; }
-	virtual string get_file_name() { return file_name; }
+	virtual std::string get_file_name() { return file_name; }
 
 	virtual void traverse() const = 0;
 	virtual bool is_composite() const = 0;
@@ -29,7 +28,7 @@ public:
 	using File::File;
 	Text() = delete;
 
-	void traverse() const override { cout << "A text file\n"; }
+	void traverse() const override { std::cout << "A text file\n"; }
 
 	bool is_composite() const override { return false; }
 
@@ -42,7 +41,7 @@ public:
 	using File::File;
 	Image() = delete;
 
-	void traverse() const override { cout << "An image\n"; }
+	void traverse() const override { std::cout << "An image\n"; }
 
 	bool is_composite() const override { return false; }
 
@@ -55,7 +54,7 @@ public:
 	using File::File;
 	Application() = delete;
 
-	void traverse() const override { cout << "An application\n"; }
+	void traverse() const override { std::cout << "An application\n"; }
 
 	bool is_composite() const override { return false; }
 
@@ -65,16 +64,17 @@ public:
 class Folder : public File
 {
 private:
-	vector<unique_ptr<File>> elements{};
+	std::vector<std::unique_ptr<File>> elements{};
+
 public:
 	using File::File;
 	Folder() = delete;
 
 	bool is_composite() const override { return true; }
 
-	void add_element(unique_ptr<File> ptr)
+	void add_element(std::unique_ptr<File> ptr)
 	{
-		elements.emplace_back(move(ptr));
+		elements.emplace_back(std::move(ptr));
 	}
 
 	void delete_element(const int index)
@@ -84,7 +84,8 @@ public:
 
 	void traverse() const override
 	{
-		cout << "A folder\n";
+		std::cout << "A folder\n";
+		
 		for (const auto& x : elements)
 		{
 			x->traverse();
@@ -94,6 +95,7 @@ public:
 	double get_file_size() const override
 	{
 		double folder_size{ 0 };
+		
 		for (const auto& x : elements)
 		{
 			folder_size += x->get_file_size();
@@ -104,25 +106,25 @@ public:
 
 int main()
 {
-	unique_ptr<File> img = make_unique<Image>(3.05, "img", ".jpg");
-	unique_ptr<File> txt = make_unique<Text>(0.02, "txt", ".doc");
-	unique_ptr<File> app = make_unique<Application>(25.6, "app", ".exe");
+	std::unique_ptr<File> img = std::make_unique<Image>(3.05, "img", ".jpg");
+	std::unique_ptr<File> txt = std::make_unique<Text>(0.02, "txt", ".doc");
+	std::unique_ptr<File> app = std::make_unique<Application>(25.6, "app", ".exe");
 
 	Folder x(0, "folder", "");
 	x.add_element(move(img));
 	x.add_element(move(txt));
 
-	unique_ptr<File> folder = make_unique<Folder>(move(x));
+	std::unique_ptr<File> folder = std::make_unique<Folder>(std::move(x));
 
-	vector<unique_ptr<File>> filesystem;
+	std::vector<std::unique_ptr<File>> filesystem;
 
-	filesystem.emplace_back(move(folder));
-	filesystem.emplace_back(move(app));
+	filesystem.emplace_back(std::move(folder));
+	filesystem.emplace_back(std::move(app));
 
 	double filesystem_size{ 0 };
-	
+
 	for (size_t i = 0; i < filesystem.size(); ++i)
 		filesystem_size += filesystem[i]->get_file_size();
-	
-	cout << filesystem_size;
+
+	std::cout << filesystem_size;
 }
