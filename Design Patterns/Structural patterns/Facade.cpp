@@ -4,8 +4,6 @@
 #include <memory>
 #include <ctime>
 
-using namespace std;
-
 class Team;
 
 enum Question_Status
@@ -18,8 +16,9 @@ enum Question_Status
 class Question
 {
 private:
-	string question, answer;
+	std::string question, answer;
 	Question_Status status = Not_Played;
+
 public:
 	friend class Host;
 	Question() {};
@@ -29,9 +28,10 @@ public:
 class Person
 {
 protected:
-	string name, city;
+	std::string name, city;
 	Person() {}
 	friend class Host;
+
 	virtual void get_info() {};
 	virtual ~Person() {}
 };
@@ -54,10 +54,10 @@ private:
 		static Host object;
 		return object;
 	}
-	void present_the_team(const unique_ptr<Team>& obj);
+	void present_the_team(const std::unique_ptr<Team>& obj);
 
-	string read_question(const Question& quest) const { return quest.question; }
-	string read_answer(const Question& quest) const { return quest.answer; }
+	std::string read_question(const Question& quest) const { return quest.question; }
+	std::string read_answer(const Question& quest) const { return quest.answer; }
 
 	void set_status(Question& quest, Question_Status _status) { quest.status = _status; }
 	Question_Status get_status(const Question& quest) { return quest.status; }
@@ -69,15 +69,16 @@ protected:
 	friend class Team;
 	friend class Host;
 
-	string give_versions_for_the_question()
+	std::string give_versions_for_the_question()
 	{
-		string idea;
+		std::string idea;
 		return idea;
 	}
 	void get_info() override
 	{
-		cout << name << " " << city << "\n";
+		std::cout << name << " " << city << "\n";
 	}
+
 public:
 	Player() {}
 	~Player() {};
@@ -86,13 +87,16 @@ public:
 class Captain : public Player
 {
 private:
-	Captain() {}
 	friend class Team;
+
+	Captain() {}
+	std::string choose_version(const std::vector<std::string>& versions) const;
+	
 	void get_info() override
 	{
-		cout << "The team's captain is" << name << " " << city << "\n";
+		std::cout << "The team's captain is" << name << " " << city << "\n";
 	}
-	string choose_version(const vector<string>& versions) const;
+
 public:
 	~Captain() {}
 };
@@ -101,24 +105,25 @@ class Team
 {
 private:
 	Team() {}
-	shared_ptr<Player> p1{ new Player{} }, p2{ new Player{} }, p3{ new Player{} }, p4{ new Player{} }, p5{ new Player{} };
-	shared_ptr<Captain> cpt1{ new Captain{} };
-	const vector<shared_ptr<Player>> members{ move(cpt1), move(p1), move(p2), move(p3), move(p4), move(p5) };
-	string give_versions() const;
+	std::shared_ptr<Player> p1{ new Player{} }, p2{ new Player{} }, p3{ new Player{} }, p4{ new Player{} }, p5{ new Player{} };
+	std::shared_ptr<Captain> cpt1{ new Captain{} };
+	const std::vector<std::shared_ptr<Player>> members{ std::move(cpt1), std::move(p1), std::move(p2), std::move(p3), std::move(p4), std::move(p5) };
+	std::string give_versions() const;
 	friend class Host;
 	friend class What_Where_When;
+
 public:
 	~Team() {}
 };
 
-string Captain::choose_version(const vector<string>& versions) const
+std::string Captain::choose_version(const std::vector<std::string>& versions) const
 {
 	return versions[rand() % versions.size()];
 }
 
-string Team::give_versions() const
+std::string Team::give_versions() const
 {
-	vector<string> versions;
+	std::vector<std::string> versions;
 	for (size_t i = 0; i < 10; ++i)
 	{
 		versions.push_back(members[rand() % 6]->give_versions_for_the_question());
@@ -126,7 +131,7 @@ string Team::give_versions() const
 	return cpt1->choose_version(versions);
 }
 
-void Host::present_the_team(const unique_ptr<Team>& obj)
+void Host::present_the_team(const std::unique_ptr<Team>& obj)
 {
 	for (size_t i = 0; i < 6; ++i)
 		obj->members[i]->get_info();
@@ -138,6 +143,7 @@ protected:
 	Break() {}
 	friend class What_Where_When;
 	virtual void make_a_break() = 0;
+
 public:
 	~Break() {}
 };
@@ -151,7 +157,9 @@ private:
 		void sing_a_song() {}
 		Singer() {};
 	};
-	unique_ptr<Singer> performer;
+
+	std::unique_ptr<Singer> performer{};
+	
 	void make_a_break() override
 	{
 		performer->sing_a_song();
@@ -161,8 +169,8 @@ private:
 class Coffee_Break : public Break
 {
 private:
-	unique_ptr<Team> team;
-	void treat_team_to_coffee(unique_ptr<Team> team) {}
+	std::unique_ptr<Team> team{};
+	void treat_team_to_coffee(std::unique_ptr<Team> team) {}
 
 	void make_a_break() override
 	{
@@ -175,26 +183,28 @@ class Commercial_Break : public Break
 private:
 	void make_a_break() override
 	{
-		cout << "Some ad\n";
+		std::cout << "Some ad\n";
 	}
 };
 
 class Score
 {
 private:
-	unsigned short experts, viewers;
+	unsigned short experts{}, viewers{};
 	friend class What_Where_When;
+	
 	Score()
 	{
 		experts = 0;
 		viewers = 0;
 	}
+	
 	void know_winning_team()
 	{
 		if (experts == 6)
-			cout << "Today experts' team won\n";
+			std::cout << "Today experts' team won\n";
 		else
-			cout << "Today viewers' team won\n";
+			std::cout << "Today viewers' team won\n";
 	}
 	~Score() {};
 };
@@ -202,18 +212,18 @@ private:
 class What_Where_When
 {
 private:
-	unsigned short round_count = 0;
-	unique_ptr<Break> stop;
-	unique_ptr<Team> current_team{ new Team{} };
-	Score score_table;
+	unsigned short round_count{ 0 };
+	std::unique_ptr<Break> stop{};
+	std::unique_ptr<Team> current_team{ new Team{} };
+	Score score_table{};
 	Host& kryuk = Host::get_instance();
-	vector<Question> question_set, who_won;
+	std::vector<Question> question_set{}, who_won{};
 public:
 	What_Where_When() { question_set.resize(13); }
 
 	void start_game()
 	{
-		stop = make_unique<Commercial_Break>();
+		stop = std::make_unique<Commercial_Break>();
 		stop->make_a_break();
 		kryuk.present_the_team(current_team);
 
@@ -222,12 +232,12 @@ public:
 
 		if (round_count == 4)
 		{
-			stop = make_unique<Coffee_Break>();
+			stop = std::make_unique<Coffee_Break>();
 			stop->make_a_break();
 		}
 		if (round_count == 6)
 		{
-			stop = make_unique<Commercial_Break>();
+			stop = std::make_unique<Commercial_Break>();
 			stop->make_a_break();
 		}
 
@@ -257,7 +267,7 @@ public:
 		}
 		score_table.know_winning_team();
 
-		stop = make_unique<Musical_Break>();
+		stop = std::make_unique<Musical_Break>();
 		stop->make_a_break();
 	}
 	~What_Where_When() {};
@@ -266,6 +276,7 @@ public:
 int main()
 {
 	srand(time(0));
-	What_Where_When instance;
+
+	What_Where_When instance{};
 	instance.start_game();
 }
