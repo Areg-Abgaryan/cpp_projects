@@ -4,8 +4,6 @@
 #include <string>
 #include <memory>
 
-using namespace std;
-
 class Operation_System;
 class Media_Player;
 
@@ -14,9 +12,9 @@ class Logs
 private:
 	friend class Operation_System;
 
-	deque<string> history{};
+	std::deque<std::string> history{};
 
-	void add_log(const string &s)
+	void add_log(const std::string &s)
 	{
 		if (history.size() == 1000)
 		{
@@ -26,11 +24,11 @@ private:
 		else
 			history.push_back(s);
 	}
- 
+
 	void read_logs()
 	{
 		for (const auto &x : history)
-			cout << x << "\n";
+			std::cout << x << "\n";
 	}
 
 	static Logs& get_instance()
@@ -54,12 +52,12 @@ class Song
 {
 private:
 	friend class Media_Player;
-	void play_song() const { cout << song_name << " by " << artist_name << "\n"; }
+	void play_song() const { std::cout << song_name << " by " << artist_name << "\n"; }
 
 public:
 	double size{};
-	string artist_name{};
-	string song_name{};
+	std::string artist_name{};
+	std::string song_name{};
 
 	Song(const Song&) = delete;
 	Song& operator=(const Song&) = delete;
@@ -79,20 +77,20 @@ public:
 class Media_Player : public Command
 {
 private:
-	vector<Song> songs{};
+	std::vector<Song> songs{};
 
 public:
 	Media_Player() = default;
 
 	void execute() override
 	{
-		cout << "Media player executed\n";
+		std::cout << "Media player executed\n";
 
 		for (const auto &x : songs)
 			x.play_song();
 	}
 
-	void close() override { cout << "Media player closed\n"; }
+	void close() override { std::cout << "Media player closed\n"; }
 
 	~Media_Player() = default;
 };
@@ -102,7 +100,7 @@ class Web_Browser_Tab_Prototype : public Command
 public:
 	virtual void execute() override = 0;
 	virtual void close() override = 0;
-	virtual unique_ptr<Web_Browser_Tab_Prototype> clone() = 0;
+	virtual std::unique_ptr<Web_Browser_Tab_Prototype> clone() = 0;
 
 	Web_Browser_Tab_Prototype() = default;
 	virtual ~Web_Browser_Tab_Prototype() = default;
@@ -111,13 +109,13 @@ public:
 class Simple_Tab : public Web_Browser_Tab_Prototype
 {
 private:
-	unique_ptr<Web_Browser_Tab_Prototype> clone() override
+	std::unique_ptr<Web_Browser_Tab_Prototype> clone() override
 	{
-		return make_unique<Simple_Tab>(*this);
+		return std::make_unique<Simple_Tab>(*this);
 	}
 
-	void execute() override { cout << "A new tab is opened\n"; }
-	void close() override { cout << "Tab is closed\n"; }
+	void execute() override { std::cout << "A new tab is opened\n"; }
+	void close() override { std::cout << "Tab is closed\n"; }
 
 public:
 	Simple_Tab() = default;
@@ -127,12 +125,12 @@ public:
 class Incognito_Tab : public Web_Browser_Tab_Prototype
 {
 private:
-	void execute() override { cout << "Incognito tab is opened\n"; }
-	void close() override { cout << "Incognito tab is closed\n"; }
-	
-	unique_ptr<Web_Browser_Tab_Prototype> clone() override
+	void execute() override { std::cout << "Incognito tab is opened\n"; }
+	void close() override { std::cout << "Incognito tab is closed\n"; }
+
+	std::unique_ptr<Web_Browser_Tab_Prototype> clone() override
 	{
-		return make_unique<Incognito_Tab>(*this);
+		return std::make_unique<Incognito_Tab>(*this);
 	}
 
 public:
@@ -145,9 +143,9 @@ class Web_Browser_Tabs_Factory
 private:
 	friend class Operation_System;
 
-	unique_ptr<Web_Browser_Tab_Prototype> make_tab_and_execute(unique_ptr<Web_Browser_Tab_Prototype> &ptr)
+	std::unique_ptr<Web_Browser_Tab_Prototype> make_tab_and_execute(std::unique_ptr<Web_Browser_Tab_Prototype> &ptr)
 	{
-		unique_ptr<Web_Browser_Tab_Prototype> temp = ptr->clone();
+		std::unique_ptr<Web_Browser_Tab_Prototype> temp = ptr->clone();
 		temp->execute();
 		return temp;
 	}
@@ -163,9 +161,9 @@ private:
 	Logs &inst = Logs::get_instance();
 	Media_Player player{};
 
-	unique_ptr<Web_Browser_Tab_Prototype> browser{};
-	unique_ptr<Web_Browser_Tabs_Factory> tabs_factory{};
-	
+	std::unique_ptr<Web_Browser_Tab_Prototype> browser{};
+	std::unique_ptr<Web_Browser_Tabs_Factory> tabs_factory{};
+
 	void shut_down()
 	{
 		browser.get_deleter();
@@ -177,55 +175,55 @@ public:
 	{
 		inst.add_log("OS boot");
 
-		cout << " '1' : Open a new tab\n"
-			 << " '2' : Open a new incognito tab\n"
-			 << " '3' : Open logs\n"
-			 << " '4' : Media player\n"
-			 << " '5' : Shut down\n";
+		std::cout << " '1' : Open a new tab\n"
+			<< " '2' : Open a new incognito tab\n"
+			<< " '3' : Open logs\n"
+			<< " '4' : Media player\n"
+			<< " '5' : Shut down\n";
 
 		short numeral{};
 
 		for (;;)
 		{
-			cin >> numeral;
+			std::cin >> numeral;
 
 			switch (numeral)
 			{
-				case 1:
-					browser = make_unique<Simple_Tab>();
-					tabs_factory->make_tab_and_execute(browser);
-					inst.add_log("Browser tab opened");
-					break;
-				case 2:
-					browser = make_unique<Incognito_Tab>();
-					tabs_factory->make_tab_and_execute(browser);
-					break;
-				case 3:
-					inst.read_logs();
-					inst.add_log("Log reading");
-					break;
-				case 4:
-					player.execute();
-					inst.add_log("Media player opened");
-					break;
-				case 5:
-					inst.history = {};
-					this->shut_down();
-					return;
-					break;
-				default:
-					cout << "No such command!\n";
-					break;
+			case 1:
+				browser = std::make_unique<Simple_Tab>();
+				tabs_factory->make_tab_and_execute(browser);
+				inst.add_log("Browser tab opened");
+				break;
+			case 2:
+				browser = std::make_unique<Incognito_Tab>();
+				tabs_factory->make_tab_and_execute(browser);
+				break;
+			case 3:
+				inst.read_logs();
+				inst.add_log("Log reading");
+				break;
+			case 4:
+				player.execute();
+				inst.add_log("Media player opened");
+				break;
+			case 5:
+				inst.history = {};
+				this->shut_down();
+				return;
+				break;
+			default:
+				std::cout << "No such command!\n";
+				break;
 			}
 		}
 	}
 
-	Operation_System() { cout << "OS is starting\n"; }
-	~Operation_System() { cout << "OS is shutting down\n"; }
+	Operation_System() { std::cout << "OS is starting\n"; }
+	~Operation_System() { std::cout << "OS is shutting down\n"; }
 };
 
 int main()
 {
-	Operation_System os;
+	Operation_System os{};
 	os.boot();
 }
