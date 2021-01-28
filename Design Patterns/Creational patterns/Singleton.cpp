@@ -13,8 +13,8 @@ public:
 	Russia_President(const Russia_President&) = delete;
 	Russia_President& operator=(const Russia_President&) = delete;
 
-	Russia_President(const Russia_President&&) noexcept = delete;
-	Russia_President& operator=(const Russia_President&&) noexcept = delete;
+	Russia_President(Russia_President&&) noexcept = delete;
+	Russia_President& operator=(Russia_President&&) noexcept = delete;
 
 	std::string get_value() const
 	{
