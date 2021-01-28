@@ -55,31 +55,31 @@ class XiaomiSmartphone : public XiaomiItem
 {
 };
 
-class XiaomiRedmiNote9Pro : public XiaomiSmartphone
+class XiaomiRedmiNote9Pro final : public XiaomiSmartphone
 {
 private:
 	static std::list<std::unique_ptr<Observer>> redmi_note_9_pro_observers_list;
 
 public:
 	XiaomiRedmiNote9Pro() = default;
-	~XiaomiRedmiNote9Pro() final = default;
+	~XiaomiRedmiNote9Pro() = default;
 
-	void addObserver(std::unique_ptr<Observer> observer) final
+	void addObserver(std::unique_ptr<Observer> observer)
 	{
 		redmi_note_9_pro_observers_list.emplace_back(std::move(observer));
 	}
 
-	void removeObserver(std::unique_ptr<Observer> observer) final
+	void removeObserver(std::unique_ptr<Observer> observer)
 	{
 		redmi_note_9_pro_observers_list.remove(observer);
 	}
 
-	void getItemInfo() const final
+	void getItemInfo() const
 	{
 		std::cout << "\nSome Info About Redmi Note 9 Pro\n";
 	}
 
-	void notifyObservers(const std::string& message) const final
+	void notifyObservers(const std::string& message) const
 	{
 		for (const auto& x : redmi_note_9_pro_observers_list)
 			x->getItemUpdate(message);
