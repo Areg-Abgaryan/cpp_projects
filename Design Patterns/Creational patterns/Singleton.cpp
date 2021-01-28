@@ -4,7 +4,7 @@
 class Russia_President
 {
 private:
-	std::string name = { "Putin" };
+	std::string name { "Putin" };
 
 protected:
 	Russia_President() = default;
@@ -29,7 +29,7 @@ public:
 
 	static Russia_President& getinstance()
 	{
-		static Russia_President object;
+		static Russia_President object{};
 		return object;
 	}
 };
